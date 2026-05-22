@@ -6,7 +6,16 @@
 <title>LIVE SCORES // FIFA WORLD CUP 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
 <style>
+  /* Twemoji Image Styling */
+img.emoji {
+  height: 1.2em;
+  width: 1.2em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.2em;
+  pointer-events: none;
+}
 /* ══════ TOKENS ══════ */
 :root{
   --void:#050509;--void2:#0a0a12;--panel:rgba(10,12,22,0.94);
@@ -449,6 +458,14 @@ const F={
   'Bolivia':'🇧🇴','Indonesia':'🇮🇩','Cape Verde':'🇨🇻',"Curaçao":'🇨🇼',
 };
 const gf=n=>F[n]||'🏳';
+/* ═══════════════════════════════
+   TWEMOJI RENDERER
+═══════════════════════════════ */
+function renderFlags() {
+  if (window.twemoji) {
+    twemoji.parse(document.querySelector('main'));
+  }
+}
 
 /* ═══════════════════════════════
    COUNTDOWN
@@ -729,6 +746,7 @@ function renderFixtures(){
     ms.forEach(m=>html+=cardHTML(m));
   });
   el.innerHTML=html;
+  renderFlags();
 }
 
 /* ═══════════════════════════════
@@ -742,6 +760,7 @@ function renderLive(){
     el.innerHTML=`<div class="empty"><strong>NO LIVE MATCHES</strong>Matches in progress appear here automatically. Refreshes every 30 seconds.</div>`;return;
   }
   el.innerHTML=lives.map(cardHTML).join('');
+  renderFlags();
 }
 
 /* ═══════════════════════════════
@@ -755,6 +774,7 @@ function renderResults(){
     el.innerHTML=`<div class="empty"><strong>NO RESULTS YET</strong>Final scores appear here after each match.</div>`;return;
   }
   el.innerHTML=done.map(cardHTML).join('');
+  renderFlags();
 }
 
 /* ═══════════════════════════════
@@ -838,6 +858,7 @@ function renderStandings(){
     </div>`;
   }).join('');
   el.innerHTML=`<div class="s-grid">${html}</div>`;
+  renderFlags();
 }
 
 /* ═══════════════════════════════
