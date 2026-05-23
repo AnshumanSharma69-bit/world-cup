@@ -1178,11 +1178,18 @@ function pick(round, matchIndex, side) {
   renderBracket();
 }
 // Override: add reveal to ht-inner
+// Override: add reveal to ht-inner
 (function(){
-  const orig=Element.prototype.classList;
   // polyfill for ht-inner vis tracking via CSS
-  const style=document.createElement('style');
-  style.textContent='.ht-inner.vis{transform:translateY(0)!important;transition:transform .9s cubic-bezier(0.16,1,0.3,1)!important}';
+  const style = document.createElement('style');
+
+  style.textContent = `
+    .ht-inner.vis{
+      transform:translateY(0)!important;
+      transition:transform .9s cubic-bezier(0.16,1,0.3,1)!important
+    }
+  `;
+
   document.head.appendChild(style);
 })();
 window.smoothTo = function(page) {
