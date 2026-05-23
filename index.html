@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WORLD CUP 2026 — ULTRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="boot-loader" id="bootLoader">
+  <div class="boot-overlay"></div>
+  <div class="boot-content">
+    <div class="boot-title">FOOTBALL.exe</div>
+    <div class="boot-sub">INITIALIZING TACTICAL SYSTEM</div>
+    <div class="boot-bar-wrap">
+      <div class="boot-bar"></div>
+    </div>
+    <div class="boot-percent" id="bootPercent">0%</div>
+  </div>
+</div>
+<div class="cyber-grid"></div>
+<div class="grid-glow"></div>
+<div class="spotlight"></div>
+<div class="cursor-trails"></div>
+<div class="scanlines"></div>
+<div class="noise"></div>
+
+<svg id="svg-filters"><defs>
+<filter id="chroma-filter" x="-10%" y="-10%" width="120%" height="120%">
+  <feColorMatrix type="matrix" values="1.4 0 0 0 -0.1  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r" in="SourceGraphic"/>
+  <feColorMatrix type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1.4 0 -0.1  0 0 0 1 0" result="gb" in="SourceGraphic"/>
+  <feBlend in="r" in2="gb" mode="screen"/>
+</filter>
+<filter id="glow-filter"><feGaussianBlur stdDeviation="4" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+</defs></svg>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<div class="hud-c tl"></div><div class="hud-c tr"></div>
+<div class="hud-c bl"></div><div class="hud-c br"></div>
+<div class="hud-status" id="hud-status">WORLD CUP 2026 · CLASSIFIED · <span id="hud-time"></span></div>
+
+<div id="ambient-bg"><div class="abl-ring"></div></div>
+
+<div id="vignette"></div>
+<div id="scanlines"></div>
+<div id="chroma"></div>
+<div id="wipe"></div>
+<canvas id="burst-canvas"></canvas>
+
+<div id="vs-countdown"><div id="vs-count-num">3</div></div>
+
+<canvas id="hero-canvas"></canvas>
+
+<div id="loader">
+  <div class="ld-bg"></div><div class="ld-grid"></div>
+  <div class="ld-ring"></div><div class="ld-ring"></div><div class="ld-ring"></div>
+  <div class="ld-scan"></div><div class="ld-glitch-line"></div>
+  <div class="ld-inner">
+    <div class="ld-title" id="ld-title">
+      <span class="ld-line" style="font-size:clamp(60px,12vw,130px)"><span id="ld-word1"></span></span>
+      <span class="ld-line" style="font-size:clamp(60px,12vw,130px)"><span id="ld-word2"></span></span>
+      <span class="ld-line" style="font-size:clamp(28px,6vw,60px);color:var(--gold);letter-spacing:.3em"><span id="ld-word3"></span></span>
+    </div>
+    <p class="ld-sub">THE WORLD'S MOST DANGEROUS TOURNAMENT</p>
+    <div class="ld-progress"><div class="ld-prog-fill"></div></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="#hero"><b>WORLD</b>CUP</a>
+  <ul class="nav-links">
+    <li><a href="matches.html">HISTORY</a></li>
+    <li><a href="live-scores-v3.html">LIVE SCORES</a></li>
+    <li><a href="teams-database.html">PLAYERS</a></li>
+    <li><a href="villain-boss-battle.html">BOSS TCG</a></li> <li><a href="#bracket">BRACKET</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:20px">
+    <div class="nav-ticker"><div class="ticker-dot"></div><span>LIVE · BRACKET ACTIVE</span></div>
+    <button class="nav-badge btn-mag" onclick="smoothTo('vs-section')">ENTER ARENA</button>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-beams" id="hero-beams"></div>
+  <p class="hero-eyebrow" id="hero-eyebrow">THE WORLD FOOTBALL CHAMPIONSHIP</p>
+  <h1 class="hero-title" id="hero-title" style="font-size:clamp(56px,9.5vw,120px)">
+    <span class="ht-line"><span class="ht-inner" id="ht0">THE WORLD'S</span></span>
+    <span class="ht-line"><span class="ht-inner" id="ht1" style="color:var(--ambient)">MOST</span></span>
+    <span class="ht-line"><span class="ht-inner" id="ht2"><span style="color:var(--red)">DANGEROUS</span></span></span>
+    <span class="ht-line"><span class="ht-inner" id="ht3">TOURNAMENT</span></span>
+  </h1>
+  <div class="hero-football-wrap" id="hero-fb">
+    <div class="fb-glow"></div>
+    <div class="fb-orbit"><div class="orbit-dot"></div></div>
+    <div class="fb-orbit2"><div class="orbit-dot2"></div></div>
+    <div class="fb-sphere"><div class="fb-hex"></div></div>
+  </div>
+  <div class="hero-ctas" id="hero-ctas">
+    <button class="btn-mag btn-s" onclick="smoothTo('villain-boss-battle.html')">PLAY</button>
+    <button class="btn-mag btn-s" onclick="smoothTo('matches.html')">HISTORY</button>
+  <button class="btn-mag btn-s" onclick="smoothTo('live-scores-v3.html')">LIVE SCORES</button>
+  <button class="btn-mag btn-s" onclick="smoothTo('teams-database.html')">TEAMS</button>
+
+
+  </div>
+  <div class="scroll-ind" id="scroll-ind"><span></span><div class="si-bar"></div></div>
+</section>
+
+<section id="teams" class="sec">
+  <div class="sec-fx">
+    <div class="sec-fx-line" style="top:0"></div>
+    <div class="sec-fx-line" style="bottom:0"></div>
+  </div>
+  <div class="sec-head">
+
+    <h2 class="sec-title"><span style="color:var(--red)">Teams</span><br>
+    <div class="sec-div"></div>
+  </div>
+  <div class="teams-grid" id="teams-grid"></div>
+</section>
+
+<section id="players" class="sec">
+  <div class="sec-head">
+    <span class="sec-label">// BOSS CHARACTER DATABASE</span>
+    <h2 class="sec-title">ELITE<br><span style="color:var(--ambient)">OPERATIVES</span></h2>
+    <div class="sec-div"></div>
+  </div>
+  <div class="pg" id="players-grid"></div>
+</section>
+
+<section id="vs-section" class="sec">
+  <div class="sec-head">
+    <span class="sec-label">// POWER COMPARISON ENGINE</span>
+    <h2 class="sec-title">FACTION<br><span style="color:var(--gold)">CLASH</span></h2>
+    <div class="sec-div"></div>
+  </div>
+  <div class="vs-wrap">
+    <div class="vs-selector">
+      <div class="vs-card a" id="vs-a" onclick="cycleA()">
+        <div class="vs-card-label">FACTION ALPHA</div>
+        <span class="vs-flag" id="vaf">🇧🇷</span>
+        <div class="vs-cname" id="van">BRAZIL</div>
+      </div>
+      <div class="vs-center">
+        <div class="vs-glyph">VS</div>
+        <span class="vs-hint">CLICK TO CYCLE</span>
+      </div>
+      <div class="vs-card b" id="vs-b" onclick="cycleB()">
+        <div class="vs-card-label">FACTION OMEGA</div>
+        <span class="vs-flag" id="vbf">🇫🇷</span>
+        <div class="vs-cname" id="vbn">FRANCE</div>
+      </div>
+    </div>
+    <button class="vs-battle-btn btn-mag" onclick="triggerVS()">⚡ INITIATE BATTLE SEQUENCE</button>
+    <div class="vs-comp" id="vs-comp"></div>
+  </div>
+</section>
+
+<section id="bracket" class="sec">
+  <div class="sec-head">
+    <span class="sec-label">// TOURNAMENT PROGRESSION</span>
+    <h2 class="sec-title">THE<br><span style="color:var(--ambient)">BRACKET</span></h2>
+    <div class="sec-div"></div>
+  </div>
+  <div class="bracket-main">
+    <div class="bracket-info">CLICK A TEAM TO PREDICT THE WINNER</div>
+    <div class="br-rounds" id="br-rounds">
+      <div class="br-match" data-match="0">
+        <div class="pick-team" onclick="pick('r16',0,'a')">FRANCE</div>
+        <div class="pick-team" onclick="pick('r16',0,'b')">BRAZIL</div>
+      </div>
+      <div class="br-match" data-match="1">
+        <div class="pick-team" onclick="pick('r16',1,'a')">ARGENTINA</div>
+        <div class="pick-team" onclick="pick('r16',1,'b')">JAPAN</div>
+      </div>
+      <div class="br-match" data-match="2">
+        <div class="pick-team" onclick="pick('r16',2,'a')">SPAIN</div>
+        <div class="pick-team" onclick="pick('r16',2,'b')">ENGLAND</div>
+      </div>
+      <div class="br-match" data-match="3">
+        <div class="pick-team" onclick="pick('r16',3,'a')">GERMANY</div>
+        <div class="pick-team" onclick="pick('r16',3,'b')">PORTUGAL</div>
+      </div>
+    </div>
+  <div class="champion-banner" id="champ-banner">
+    <div class="champ-aura"></div>
+    <div class="champ-rings">
+      <div class="cr" style="width:200px;height:200px"></div>
+      <div class="cr" style="width:320px;height:320px"></div>
+      <div class="cr" style="width:440px;height:440px"></div>
+    </div>
+    <span class="trophy">🏆</span>
+    <div class="champ-label">// USER PREDICTION //</div>
+    <div class="champ-title" id="championName">SELECT<br><span style="color:var(--gold)">A WINNER</span></div>
+    <p class="champ-sub">Your predicted champion will appear here</p>
+  </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo"><b>WORLD</b>CUP <span style="font-size:13px">2026</span></div>
+  <p class="f-copy">// CLASSIFIED // ALL RIGHTS RESERVED // WORLD CUP FEDERATION //</p>
+  <div class="f-links">
+    <a href="#teams">FACTIONS</a><a href="#players">BOSSES</a><a href="#bracket">BRACKET</a>
+    <a href="villain-boss-battle.html">BOSS TCG</a>
+  </div>
+</footer>
+
+<div class="modal-ov" id="main-modal">
+  <button class="modal-close" onclick="closeModal()">✕  ESC TO CLOSE</button>
+  <div class="modal-box">
+    <div class="modal-holo"></div><div class="m-scan"></div>
+    <div id="modal-inner"></div>
+  </div>
+</div>
+<div class="battle-intro" id="battleIntro">
+  <div class="battle-flash"></div>
+  <div class="battle-teams">
+    <div class="battle-side" id="battleLeft">TEAM A</div>
+    <div class="battle-vs">VS</div>
+    <div class="battle-side" id="battleRight">TEAM B</div>
+  </div>
+  <div class="battle-count" id="battleCount">3</div>
+</div>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
