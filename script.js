@@ -1200,3 +1200,11 @@ window.smoothTo = function(page) {
     window.location.href = page;
   }, 300);
 }
+/* ════ BROWSER BACK BUTTON FIX ════ */
+window.addEventListener("pageshow", function (event) {
+  // event.persisted is true if the browser is trying to load a "frozen" version of the page from cache
+  if (event.persisted) {
+    // Force the browser to do a clean, fresh reload instead
+    window.location.reload();
+  }
+});
