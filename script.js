@@ -251,6 +251,7 @@ function initLoader(){
 }
 
 /* ════ HERO ════ */
+/* ════ HERO ════ */
 function initHero(){
   document.getElementById('navbar').classList.add('vis');
   // light beams
@@ -268,7 +269,7 @@ function initHero(){
       ['ht0','ht1','ht2','ht3'].forEach((id,i)=>setTimeout(()=>document.getElementById(id).classList.add('vis'),i*130));
     },[],'+=.1')
     .to('#hero-fb',{opacity:1,duration:.9,ease:'power2.out'},'+=.2')
-    .to('#hero-sub',{opacity:1,y:0,duration:.7,ease:'power2.out'},'-=.4')
+    // Removed the #hero-sub animation here!
     .to('#hero-ctas',{opacity:1,y:0,duration:.6,ease:'power2.out'},'-=.3')
     .to('#scroll-ind',{opacity:1,duration:.4},'-=.2');
   // parallax on scroll
