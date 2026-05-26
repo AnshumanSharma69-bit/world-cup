@@ -2,7 +2,7 @@
 
 > A cyberpunk-themed, full-stack World Cup fan experience. Live scores, historical match archive, and an interactive card battle game — all in one.
 
-[![Live Demo](https://img.shields.io/badge/LIVE%20DEMO-Visit%20Site-00f7ff?style=for-the-badge)](https://your-vercel-url.vercel.app)
+[![Live Demo](https://img.shields.io/badge/LIVE%20DEMO-Visit%20Site-00f7ff?style=for-the-badge)](https://world-cup-two-indol.vercel.app/)
 [![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com)
 [![Supabase](https://img.shields.io/badge/Database-Supabase-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com)
 
