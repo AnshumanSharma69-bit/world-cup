@@ -8,7 +8,7 @@
 
 ---
 
-![World Cup 2026 Platform Preview](https://via.placeholder.com/1200x600/04060f/00f7ff?text=WC26+Platform+Preview)
+![World Cup 2026 Platform Preview](![World Cup 2026 Platform Preview](./images/app.png))
 
 ---
 
@@ -288,7 +288,7 @@ The `vercel.json` configures:
 <div align="center">
   <p>Built by <a href="https://github.com/AnshumanSharma69-bit">Anushman Sharma</a></p>
   <p>
-    <a href="https://world-cup-two-indol.vercel.app/index.html">🌐 Live Demo</a> &nbsp;·&nbsp;
+    <a href="https://world-cup-two-indol.vercel.app">🌐 Live Demo</a> &nbsp;·&nbsp;
     <a href="https://github.com/AnshumanSharma69-bit/world-cup/issues">🐛 Report Bug</a> &nbsp;·&nbsp;
     <a href="https://github.com/AnshumanSharma69-bit/world-cup/issues">✨ Request Feature</a>
   </p>
