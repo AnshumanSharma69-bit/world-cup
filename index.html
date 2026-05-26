@@ -76,17 +76,31 @@
 
 <nav id="navbar">
   <a class="nav-logo" href="#hero"><b>WORLD</b>CUP</a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="nav-links">
     <li><a href="matches.html">HISTORY</a></li>
     <li><a href="live-scores-v3.html">LIVE SCORES</a></li>
     <li><a href="teams-database.html">PLAYERS</a></li>
-    <li><a href="villain-boss-battle.html">BOSS TCG</a></li> <li><a href="#bracket">BRACKET</a></li>
+    <li><a href="villain-boss-battle.html">BOSS TCG</a></li>
+    <li><a href="#bracket">BRACKET</a></li>
+    <li><a href="head-to-head.html">H2H</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:20px">
+  <div class="nav-right">
     <div class="nav-ticker"><div class="ticker-dot"></div><span>LIVE · BRACKET ACTIVE</span></div>
-    <button class="nav-badge btn-mag" onclick="smoothTo('vs-section')">ENTER ARENA</button>
+    <button class="nav-badge btn-mag" onclick="scrollToSection('vs-section')">ENTER ARENA</button>
+    <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="matches.html">HISTORY</a>
+  <a href="live-scores-v3.html">LIVE SCORES</a>
+  <a href="teams-database.html">PLAYERS</a>
+  <a href="villain-boss-battle.html">BOSS TCG</a>
+  <a href="#bracket" onclick="toggleNav()">BRACKET</a>
+  <a href="head-to-head.html">H2H</a>
+  <a href="#vs-section" onclick="toggleNav();scrollToSection('vs-section')">ENTER ARENA</a>
+</div>
 
 <section id="hero">
   <div class="hero-grid-bg"></div>
@@ -105,12 +119,10 @@
     <div class="fb-sphere"><div class="fb-hex"></div></div>
   </div>
   <div class="hero-ctas" id="hero-ctas">
-    <button class="btn-mag btn-s" onclick="smoothTo('villain-boss-battle.html')">PLAY</button>
-    <button class="btn-mag btn-s" onclick="smoothTo('matches.html')">HISTORY</button>
-  <button class="btn-mag btn-s" onclick="smoothTo('live-scores-v3.html')">LIVE SCORES</button>
-  <button class="btn-mag btn-s" onclick="smoothTo('teams-database.html')">TEAMS</button>
-
-
+    <button class="btn-mag btn-p" onclick="window.location.href='villain-boss-battle.html'">PLAY</button>
+    <button class="btn-mag btn-s" onclick="window.location.href='matches.html'">HISTORY</button>
+    <button class="btn-mag btn-s" onclick="window.location.href='live-scores-v3.html'">LIVE SCORES</button>
+    <button class="btn-mag btn-s" onclick="window.location.href='teams-database.html'">TEAMS</button>
   </div>
   <div class="scroll-ind" id="scroll-ind"><span></span><div class="si-bar"></div></div>
 </section>
@@ -122,7 +134,7 @@
   </div>
   <div class="sec-head">
 
-    <h2 class="sec-title"><span style="color:var(--red)">Teams</span><br>
+    <h2 class="sec-title"><span style="color:var(--red)">Teams</span></h2>
     <div class="sec-div"></div>
   </div>
   <div class="teams-grid" id="teams-grid"></div>
@@ -173,24 +185,7 @@
   </div>
   <div class="bracket-main">
     <div class="bracket-info">CLICK A TEAM TO PREDICT THE WINNER</div>
-    <div class="br-rounds" id="br-rounds">
-      <div class="br-match" data-match="0">
-        <div class="pick-team" onclick="pick('r16',0,'a')">FRANCE</div>
-        <div class="pick-team" onclick="pick('r16',0,'b')">BRAZIL</div>
-      </div>
-      <div class="br-match" data-match="1">
-        <div class="pick-team" onclick="pick('r16',1,'a')">ARGENTINA</div>
-        <div class="pick-team" onclick="pick('r16',1,'b')">JAPAN</div>
-      </div>
-      <div class="br-match" data-match="2">
-        <div class="pick-team" onclick="pick('r16',2,'a')">SPAIN</div>
-        <div class="pick-team" onclick="pick('r16',2,'b')">ENGLAND</div>
-      </div>
-      <div class="br-match" data-match="3">
-        <div class="pick-team" onclick="pick('r16',3,'a')">GERMANY</div>
-        <div class="pick-team" onclick="pick('r16',3,'b')">PORTUGAL</div>
-      </div>
-    </div>
+    <div class="br-rounds" id="br-rounds"></div>
   <div class="champion-banner" id="champ-banner">
     <div class="champ-aura"></div>
     <div class="champ-rings">

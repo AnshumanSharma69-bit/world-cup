@@ -927,11 +927,12 @@ function initHUD(){
   tick();
 }
 
-function smoothTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
 
 /* ════ INIT ════ */
 window.addEventListener('load',()=>{
-  initCursor();initThree();initHUD();
+  const isTouch = 'ontouchstart' in window;
+  if (!isTouch) { initCursor(); initThree(); }
+  initHUD();
   renderTeams();renderPlayers();renderBracket();renderVS();
   initGSAP();initMagnetic();initLoader();
   // reveal .ht-inner when vis class is added
@@ -946,6 +947,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(el.classList.contains('vis'))el.style.transform='none';
   });
 });
+if (!('ontouchstart' in window)) {
 document.querySelectorAll('.pc').forEach(card=>{
 
   card.addEventListener('mousemove',e=>{
@@ -983,6 +985,7 @@ document.querySelectorAll('.pc').forEach(card=>{
   });
 
 });
+}
 const revealCards = () => {
 
   document.querySelectorAll('.pc').forEach((card,index)=>{
@@ -1194,17 +1197,49 @@ function pick(round, matchIndex, side) {
   document.head.appendChild(style);
 })();
 window.smoothTo = function(page) {
-  document.body.style.opacity = "0";
+  // If it starts with '#', scroll to section; otherwise navigate to page
+  if (page.startsWith('#')) {
+    const id = page.slice(1);
+    document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+  } else {
+    document.body.style.transition = 'opacity 0.3s ease';
+    document.body.style.opacity = '0';
+    setTimeout(() => { window.location.href = page; }, 300);
+  }
+}
+window.scrollToSection = function(id) {
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+}
 
-  setTimeout(() => {
-    window.location.href = page;
-  }, 300);
+/* ════ HAMBURGER NAV ════ */
+window.toggleNav = function() {
+  const menu = document.getElementById('nav-mobile-menu');
+  const ham = document.getElementById('nav-hamburger');
+  menu.classList.toggle('open');
+  ham.classList.toggle('open');
+}
+
+// Close mobile menu on outside click
+document.addEventListener('click', e => {
+  const menu = document.getElementById('nav-mobile-menu');
+  const ham = document.getElementById('nav-hamburger');
+  if (menu && ham && !menu.contains(e.target) && !ham.contains(e.target)) {
+    menu.classList.remove('open');
+    ham.classList.remove('open');
+  }
+});
+
+// Disable custom cursor on touch devices
+if ('ontouchstart' in window) {
+  document.body.style.cursor = 'auto';
+  const curEl = document.getElementById('cur');
+  const ringEl = document.getElementById('cur-r');
+  if (curEl) curEl.style.display = 'none';
+  if (ringEl) ringEl.style.display = 'none';
 }
 /* ════ BROWSER BACK BUTTON FIX ════ */
 window.addEventListener("pageshow", function (event) {
-  // event.persisted is true if the browser is trying to load a "frozen" version of the page from cache
-  if (event.persisted) {
-    // Force the browser to do a clean, fresh reload instead
-    window.location.reload();
-  }
+  // Restore opacity in case we faded out before navigating
+  document.body.style.opacity = '1';
+  document.body.style.transition = '';
 });
